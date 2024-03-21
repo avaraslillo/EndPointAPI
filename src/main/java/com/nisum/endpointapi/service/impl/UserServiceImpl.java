@@ -72,10 +72,7 @@ public class UserServiceImpl implements UserService {
             //String jsonStr = mapper.writeValueAsString();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(jsonString);
-            System.out.println(jsonString);
-            System.out.println(jsonNode.toString());
             String name=jsonNode.get("name").asText();
-            System.out.println(name);
             String email=jsonNode.get("email").asText();
             String password=jsonNode.get("password").asText();
             
