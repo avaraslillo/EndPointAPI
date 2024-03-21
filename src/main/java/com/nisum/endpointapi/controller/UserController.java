@@ -28,15 +28,6 @@ public class UserController {
 	private UserService usuarioService;
 	
 	
-	/*@GetMapping("/usuarios")
-	public List<Usuario> findAllUsers(){
-		return usuarioRepository.findAll();
-	}
-	
-	@GetMapping("/usuario/{name}")
-	public List<Usuario> findByName(@PathVariable("name") String name) {
-		return usuarioRepository.findByName(name);
-	}*/
 	
 	@PostMapping("/usuario")
 	public String createUser(@RequestBody String jsonString) {
@@ -44,14 +35,5 @@ public class UserController {
 		return usuarioService.crearUsuario(jsonString);
 	}
 	
-	/*@PutMapping("/usuario/{id}")
-	public Usuario updateUser(@PathVariable int id ,@RequestBody Usuario usuario) {
-		return usuarioRepository.save(usuario);
-	}
-	
-	@DeleteMapping("/usuario/{id}")
-	public void deletePerson(@PathVariable("id") Long id) {
-		usuarioRepository.deleteById(id);
-	}*/
 }
 
