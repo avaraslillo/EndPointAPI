@@ -6,11 +6,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,9 +21,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nisum.endpointapi.model.Telephone;
 import com.nisum.endpointapi.model.User;
 import com.nisum.endpointapi.repository.UserRepository;
+import com.nisum.endpointapi.service.JwtUtil;
 import com.nisum.endpointapi.service.UserService;
 
-import netscape.javascript.JSObject;
 
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
@@ -32,6 +34,13 @@ public class UserServiceImpl implements UserService {
     @Qualifier("userRepository")
     UserRepository usuarioRepository;
 
+    
+    @Override
+    public String generarToken() {
+        return UUID.randomUUID().toString();
+    }
+
+    @Override
     public boolean encontrarUsuarioPorEmail(User usuario){
         List<User> lista_usuarios=usuarioRepository.findByEmail(usuario.getEmail());
         if(lista_usuarios.isEmpty()){
@@ -43,14 +52,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public static boolean esEmailValido(String email) {
+    @Override
+    public boolean esEmailValido(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public static boolean validarContrasena(String contrasena) {
+    @Override
+    public boolean validarContrasena(String contrasena) {
         // Definir la expresión regular para la contraseña
         String expresionRegular = EXPRESION_REGULAR;
 
@@ -76,10 +87,12 @@ public class UserServiceImpl implements UserService {
             String email=jsonNode.get("email").asText();
             String password=jsonNode.get("password").asText();
             
+
+
             Date created=new Date();
             Date modified=new Date();
             Date last_login=new Date();
-            String token="";
+            String token=generarToken();
             boolean is_active=true;
 
             User usuario=new User(name,email,password,null,created,modified,last_login,token,is_active);
@@ -171,5 +184,9 @@ public class UserServiceImpl implements UserService {
         // TODO Auto-generated method stub
         return (ArrayList<User>) usuarioRepository.findAll();
     }
+
+
+
+
 
 }

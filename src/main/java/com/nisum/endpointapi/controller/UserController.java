@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ public class UserController {
 	
 	@PostMapping("/usuario")
 	public String createUser(@RequestBody String jsonString) {
+		
 		return usuarioService.crearUsuario(jsonString);
 	}
 	
