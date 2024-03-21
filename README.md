@@ -52,3 +52,6 @@
 # Fecha del último ingreso del usuario 
 # token: token de acceso de la API (puede ser UUID o JWT)
 # isactive: Indica si el usuario sigue habilitado dentro del sistema.
+
+
+# Documentación Swagger disponible en http://localhost:8080/swagger-ui/
