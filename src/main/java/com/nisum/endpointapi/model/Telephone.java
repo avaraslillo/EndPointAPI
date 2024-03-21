@@ -2,6 +2,8 @@ package com.nisum.endpointapi.model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,13 +21,16 @@ public class Telephone {
     @Column(name="uuid")
     private UUID uuid;
     @Column(name = "phone_number")
+    @JsonProperty("number")
     private String phone_number;
     @Column(name = "phone_citycode")
+    @JsonProperty("citycode")
     private String phone_citycode;
     @Column(name = "phone_countrycode")
+    @JsonProperty("countrycode")
     private String phone_countrycode;
     @ManyToOne
-    @JoinColumn(name = "usuario_uuid")
+    @JoinColumn(name = "usuario_uuid",referencedColumnName = "uuid")
     private User usuario;
 
     public UUID getUuid() {
@@ -55,7 +60,7 @@ public class Telephone {
     public User getUsuario() {
         return usuario;
     }
-    public void setUser(User usuario) {
+    public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 
@@ -70,10 +75,22 @@ public class Telephone {
         this.usuario = usuario;
     }
 
+    public Telephone(String phone_number, String phone_citycode, String phone_countrycode, User usuario) {
+        this.phone_number = phone_number;
+        this.phone_citycode = phone_citycode;
+        this.phone_countrycode = phone_countrycode;
+        this.usuario=usuario;
+    }
+
     public Telephone(String phone_number, String phone_citycode, String phone_countrycode) {
         this.phone_number = phone_number;
         this.phone_citycode = phone_citycode;
         this.phone_countrycode = phone_countrycode;
+    }
+    @Override
+    public String toString() {
+        return "Telephone [uuid=" + uuid + ", phone_number=" + phone_number + ", phone_citycode=" + phone_citycode
+                + ", phone_countrycode=" + phone_countrycode + ", usuario=" + usuario + "]";
     }
 
 

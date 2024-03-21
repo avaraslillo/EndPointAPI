@@ -1,5 +1,6 @@
 package com.nisum.endpointapi.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -46,7 +47,7 @@ public class User {
     @Column(name="is_active")
     private boolean is_active;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Telephone> phone_list;
+    private List<Telephone> phone_list = new ArrayList<Telephone>();
 
     public UUID getUuid() {
         return uuid;
@@ -143,7 +144,7 @@ public class User {
     public String toString() {
         return "User [uuid=" + uuid + ", name=" + name + ", email=" + email + ", password=" + password + ", created="
                 + created + ", modified=" + modified + ", last_login=" + last_login + ", token=" + token
-                + ", is_active=" + is_active + ", phone_list=" + phone_list + "]";
+                + ", is_active=" + is_active + "]";
     }
 
 

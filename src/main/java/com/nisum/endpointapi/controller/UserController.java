@@ -38,7 +38,7 @@ public class UserController {
 	}*/
 	
 	@PostMapping("/usuario")
-	public JSONPObject createUser(@RequestBody String jsonString) {
+	public String createUser(@RequestBody String jsonString) {
 		return usuarioService.crearUsuario(jsonString);
 	}
 	
